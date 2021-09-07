@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/lotim-animal-world/static/css/main.bfd39f1d.chunk.css",
+    "main.js": "/lotim-animal-world/static/js/main.b0fe6126.chunk.js",
+    "main.js.map": "/lotim-animal-world/static/js/main.b0fe6126.chunk.js.map",
+    "runtime-main.js": "/lotim-animal-world/static/js/runtime-main.695a13e2.js",
+    "runtime-main.js.map": "/lotim-animal-world/static/js/runtime-main.695a13e2.js.map",
+    "static/css/2.4be38407.chunk.css": "/lotim-animal-world/static/css/2.4be38407.chunk.css",
+    "static/js/2.ebaf240b.chunk.js": "/lotim-animal-world/static/js/2.ebaf240b.chunk.js",
+    "static/js/2.ebaf240b.chunk.js.map": "/lotim-animal-world/static/js/2.ebaf240b.chunk.js.map",
+    "static/js/3.540e40d6.chunk.js": "/lotim-animal-world/static/js/3.540e40d6.chunk.js",
+    "static/js/3.540e40d6.chunk.js.map": "/lotim-animal-world/static/js/3.540e40d6.chunk.js.map",
+    "index.html": "/lotim-animal-world/index.html",
+    "static/css/2.4be38407.chunk.css.map": "/lotim-animal-world/static/css/2.4be38407.chunk.css.map",
+    "static/css/main.bfd39f1d.chunk.css.map": "/lotim-animal-world/static/css/main.bfd39f1d.chunk.css.map",
+    "static/js/2.ebaf240b.chunk.js.LICENSE.txt": "/lotim-animal-world/static/js/2.ebaf240b.chunk.js.LICENSE.txt",
+    "static/media/home.scss": "/lotim-animal-world/static/media/Metropolis-Bold.c5e04faf.otf",
+    "static/media/index.scss": "/lotim-animal-world/static/media/Nunito-Regular.e4eb7682.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.695a13e2.js",
+    "static/css/2.4be38407.chunk.css",
+    "static/js/2.ebaf240b.chunk.js",
+    "static/css/main.bfd39f1d.chunk.css",
+    "static/js/main.b0fe6126.chunk.js"
+  ]
+}
