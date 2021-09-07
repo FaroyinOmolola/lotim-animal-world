@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "font-normal";
+  src: url(./font/Nunito/Nunito-Regular.ttf);
+};
+
+@font-face {
+  font-family: "font-italics";
+  src: url(./font/Nunito/Nunito-Italic.ttf);
+};
+
+body{
+  font-family: "font-normal";
+  font-size: xx-large !important;
+  color: grey;
+}
+

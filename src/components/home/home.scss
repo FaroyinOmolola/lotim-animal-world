@@ -1,0 +1,142 @@
+
+
+/*Carousel Styles*/
+@font-face {
+  font-family: "metro-bold";
+  src: url("../../font/Metropolis/Metropolis-Bold.otf");
+};
+.metro-bold{
+	font-family: "metro-bold";
+}
+.carouselcaption {
+	 font-family: "metro-bold";
+	 line-height: 70px;
+}
+.carouselcaption-head{
+	font-size: xx-large;
+}
+@media (max-width: 500px){
+	.carousel-container{
+		min-height: 330px;
+
+	}
+	.h1, h1 {
+    font-size: 24px;
+}
+	.h3, h3 {
+    font-size: 20px;
+}
+	.carouselcaption {
+	 line-height: 12px;
+}
+.carouselcaption-head{
+	font-size: 12px;
+}
+}
+@media (min-width: 768px) {
+	.carousel-container{
+		max-height: 550px;
+
+	}
+}
+@media (max-width: 472px) {
+	#home {
+		line-height: 16px;
+
+	}
+}
+
+/*Why Choose Us Styles*/
+
+#why{
+	max-width: 70%;
+}
+#reasons{
+	max-width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.reason{
+	border-radius: 15px;
+	height: 250px;
+}
+@media (min-width: 768px) {
+	.reason{
+		max-width: 45%;
+		height: 300px;
+	}
+	#reasons{
+	max-width: 90%;
+}
+}
+.cursor-unset{
+	cursor: unset;
+}
+.mn{
+	margin-top: -50px;
+}
+
+/*Poutry Display*/
+@media (max-width: 768px){
+.poultry-carousel{
+	height: 400px;
+}
+}
+@media (min-width: 768px) {
+	.poultry-carousel{
+		max-height: 550px;
+
+	}
+}
+
+/*Services*/
+.service{
+	width: 320px;
+	height: 550px;
+	border-radius: 10px;
+}
+.service-img{
+	height: 55%;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+.service-heading{
+	background-color: lightgray;
+	padding: 10px 20px;
+	font-size: 18px !important;
+	text-align: initial !important;
+}
+
+.service-text{
+	text-align: initial !important;
+	margin: auto;
+}
+
+
+
+/*Appointment Styles*/
+.select{
+	width: -webkit-fill-available;
+	color: grey;
+}
+
+.contact-form{
+	margin: auto;
+	border-radius: 30px;
+	border: 2px solid lightgrey;
+}
+
+@media (min-width: 576px) {
+	.contact-form{
+		max-width: 60%;
+
+	}
+}
+@media (min-width: 992px) {
+	.contact-form {
+		width: 50%;
+
+	}
+}
+
+
