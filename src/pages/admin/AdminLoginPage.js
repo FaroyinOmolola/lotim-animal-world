@@ -1,53 +1,37 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Container, Button, Form, Spinner, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  adminLogin,
+  adminRequestVerifcation,
+} from "../../actions/AdminActions";
+import { useHistory } from "react-router";
 
-function AdminLogin() {
-  const [adminDetails, setAdminDetails] = useState({
-    adminEmail: "",
-    adminPassword: "",
-  });
-
-  const handleDetails = (event) => {
-    const { name, value } = event.target;
-    setAdminDetails({ ...adminDetails, [name]: value });
-  };
-
+function AdminLogin(props) {
+  const [adminEmail, setAdminEmail] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
   const [validated, setValidated] = useState(false);
-  const [correctDetails, setCorrectDetails] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [verificationCode, setVerificationCode] = useState(false);
+  const adminLoginDetails = useSelector((state) => state.adminLoginDetails);
+  const { loading, success, error } = adminLoginDetails;
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    event.preventDefault();
-    setValidated(false);
+  console.log(success);
+  const dispatch = useDispatch();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
-      event.stopPropagation();
-      // return;
+      e.stopPropagation();
     } else {
-      setCorrectDetails(true);
-      axios
-        .post("https://jsonplaceholder.typicode.com/posts/", adminDetails)
-        .then((response) => {
-          console.log(response);
-          setVerificationCode(true);
-          setCorrectDetails(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setCorrectDetails(false);
-        });
-    }
-  };
+      setValidated(true);
+      dispatch(adminLogin({ adminEmail, adminPassword }));
 
-  const [showPassword, setShowPassword] = useState(false);
-  const handleVisibility = () => {
-    setShowPassword(showPassword ? false : true);
+      ///Revisit when API is ready
+    }
   };
 
   return (
@@ -55,9 +39,9 @@ function AdminLogin() {
       id="contactus"
       className=" contact p-3 mx-auto my-5 rounded-pill"
     >
-      {!verificationCode ? (
+      {!success ? (
         <Form
-          className="contact-form p-3 mt-4"
+          className="contact-form p-3 mt-5"
           validated={validated}
           noValidate
           onSubmit={handleSubmit}
@@ -70,9 +54,9 @@ function AdminLogin() {
             <Form.Label htmlFor="adminEmail">Email Address</Form.Label>
             <Form.Control
               type="email"
-              onChange={handleDetails}
+              onChange={(e) => setAdminEmail(e.target.value)}
               name="adminEmail"
-              value={adminDetails.adminEmail}
+              value={adminEmail}
               required
               placeholder="Enter login email"
             />
@@ -83,13 +67,16 @@ function AdminLogin() {
             <InputGroup className="mb-3">
               <Form.Control
                 type={showPassword ? "text" : "password"}
-                onChange={handleDetails}
+                onChange={(e) => setAdminPassword(e.target.value)}
                 name="adminPassword"
-                value={adminDetails.adminPassword}
+                value={adminPassword}
                 required
                 placeholder="Enter password"
               />
-              <Button onClick={handleVisibility} variant="outline-secondary">
+              <Button
+                onClick={() => setShowPassword(showPassword ? false : true)}
+                variant="outline-secondary"
+              >
                 {showPassword ? (
                   <img
                     src="/images/outline_visibility_off_black_24dp.png"
@@ -108,7 +95,7 @@ function AdminLogin() {
           <div className="text-center">
             <Button variant="primary" type="submit">
               Log in
-              {correctDetails ? (
+              {loading && (
                 <Spinner
                   className="mx-2"
                   as="span"
@@ -117,57 +104,55 @@ function AdminLogin() {
                   role="status"
                   aria-hidden="true"
                 />
-              ) : null}
+              )}
             </Button>
           </div>
         </Form>
       ) : (
-        <VerificationCode />
+        <VerificationCode success="success" />
       )}
     </Container>
   );
 }
 
-const VerificationCode = () => {
+const VerificationCode = (props) => {
   const [adminVerification, setAdminVerification] = useState("");
   const [validatedCode, setValidatedCode] = useState(false);
   const [correctCode, setCorrectCode] = useState(false);
   const [validated, setValidated] = useState(false);
+  // const [backToLogin, setBackToLogin] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      setValidated(true);
+      e.stopPropagation();
+    } else {
+      setValidated(true);
+      dispatch(adminLogin({})); ///Revisit when API is ready
+    }
+  };
 
   let history = useHistory();
 
-  const handleVerificationCode = (event) => {
-    setAdminVerification(event.target.value);
-  };
-  console.log(adminVerification);
+  // useEffect(() => {
+  //   if (backToLogin) {
+  //     props.history.push("/adminLogin");
+  //   }
+  //   // dispatch({ type: ORDER_CREATE_RESET });
+  // }, [backToLogin, props.history]);
+  // const loginDetailsSuccess = props.success;
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    event.preventDefault();
-    setValidated(false);
+  // const backToLogin = () => {
+  //   history.push("/adminLogin");
+  // };
 
-    if (form.checkValidity() === false) {
-      setValidated(true);
-      event.stopPropagation();
-      // return;
-    } else {
-      setCorrectCode(true);
-      axios
-        .post("https://jsonplaceholder.typicode.com/posts/", {
-          code: adminVerification,
-        })
-        .then((response) => {
-          console.log(response, validatedCode);
-          setCorrectCode(false);
-          setValidatedCode(true);
-          history.push("/admin");
-        })
-        .catch((err) => {
-          console.log(err);
-          setCorrectCode(false);
-        });
-    }
-  };
+  const adminLoginDetails = useSelector((state) => state.adminLoginDetails);
+  const { success } = adminLoginDetails;
+  console.log(success);
 
   return (
     <div>
@@ -189,7 +174,7 @@ const VerificationCode = () => {
           <Form.Label htmlFor="adminEmail">Enter Verification code</Form.Label>
           <Form.Control
             type="text"
-            onChange={handleVerificationCode}
+            onChange={(e) => setAdminVerification(e.target.value)}
             name="adminVerification"
             value={adminVerification}
             pattern="[0-9]{6}"
@@ -199,7 +184,12 @@ const VerificationCode = () => {
         </Form.Group>
 
         <div className="text-center">
-          <Button variant="primary" className="mx-3">
+          <Button
+            variant="primary"
+            className="mx-3"
+            onClick={success === true}
+            //   {() => setBackToLogin(true)}
+          >
             Back
           </Button>
 
@@ -223,3 +213,38 @@ const VerificationCode = () => {
 };
 
 export default AdminLogin;
+
+// let history = useHistory();
+
+// const handleVerificationCode = (event) => {
+//   setAdminVerification(event.target.value);
+// };
+// console.log(adminVerification);
+
+// const handleSubmit = (event) => {
+//   const form = event.currentTarget;
+//   event.preventDefault();
+//   setValidated(false);
+
+//   if (form.checkValidity() === false) {
+//     setValidated(true);
+//     event.stopPropagation();
+//     // return;
+//   } else {
+//     setCorrectCode(true);
+//     axios
+//       .post("https://jsonplaceholder.typicode.com/posts/", {
+//         code: adminVerification,
+//       })
+//       .then((response) => {
+//         console.log(response, validatedCode);
+//         setCorrectCode(false);
+//         setValidatedCode(true);
+//         history.push("/admin");
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         setCorrectCode(false);
+//       });
+//   }
+// };
