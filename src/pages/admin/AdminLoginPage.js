@@ -141,6 +141,8 @@ const VerificationCode = (props) => {
       setValidated(true);
       dispatch(adminRequestVerifcation(validateCode));
       history.push("./admin"); ///Revisit when API is ready
+      setValidateCode(true);
+      setCorrectCode(true);
     }
   };
 
