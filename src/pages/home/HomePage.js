@@ -27,10 +27,10 @@ function Home(props) {
             alt="First slide"
           />
           <Carousel.Caption className="carouselcaption metro-bold">
-            <h1 className="fs-lg-1 ">Welcome Clients!</h1>
+            <h1 className="fs-lg-1 w-100 ">Welcome Clients!</h1>
             <h3>We look forward to caring for your animals</h3>
             <a href="#contactus">
-              <button className="btn btn-primary px-5 py-2 m-2">
+              <button className="btn btn-primary px-md-5 px-3 py-md-2 m-md-2">
                 Book Appointment
               </button>
             </a>
@@ -46,7 +46,7 @@ function Home(props) {
             <h1 className="fs-lg-1">Healthy pet is Essential!</h1>
             <h3>We provide all health care and grooming services</h3>
             <a href="#contactus">
-              <button className="btn btn-primary px-5 py-2 m-2">
+              <button className="btn btn-primary px-md-5 px-3 py-md-2 m-md-2">
                 Book Appointment
               </button>
             </a>
@@ -59,11 +59,11 @@ function Home(props) {
             alt="First slide"
           />
           <Carousel.Caption className="carouselcaption">
-            <h1 className="fs-lg-1">We Deliver to Your Doorstep!</h1>
+            <h1 className="fs-lg-1">Doorstep Delivery!</h1>
             <h3>Quality Animal drugs, Vaccines and Care producs</h3>
             <button
               onClick={() => redirectTo("/products")}
-              className="btn btn-primary px-5 py-2 m-2"
+              className="btn btn-primary px-md-5 px-3 py-md-2 m-md-2"
             >
               Order Now
             </button>
@@ -76,11 +76,11 @@ function Home(props) {
             alt="First slide"
           />
           <Carousel.Caption className="carouselcaption">
-            <h1 className="fs-lg-1">We Deliver to Your Doorstep!</h1>
+            <h1 className="fs-lg-1">Doorstep Delivery!</h1>
             <h3>Quality Pet Food and Accessories</h3>
             <button
               onClick={() => redirectTo("/products")}
-              className="btn btn-primary px-5 py-2 m-2"
+              className="btn btn-primary px-md-5 px-3 py-md-2 m-md-2"
             >
               Order Now
             </button>
@@ -173,7 +173,7 @@ function Home(props) {
       <div className="poultry-display">
         <div className="carousel" data-bs-ride="carousel">
           <div className="carousel-inner">
-            <div className="carousel-item poultry-carousel active">
+            <div className="carousel-item poultry-carousel carouse active">
               <img
                 className="d-block w-100"
                 src="/images/poultry.jpeg"
@@ -197,7 +197,12 @@ function Home(props) {
         id="services"
         className="text-center mx-3 mx-md-0 my-5 justify-content-center"
       >
-        <Col xs={12} md={6} lg={4} className="m-4 shadow service p-0">
+        <Col
+          xs={12}
+          md={6}
+          lg={4}
+          className="my-4 mx-5 mx-md-4 shadow service p-0"
+        >
           <img
             className="d-block w-100 service-img"
             src="/images/consultation edited.jpg"
@@ -212,7 +217,12 @@ function Home(props) {
             and maximize profit.
           </p>
         </Col>
-        <Col xs={12} md={6} lg={4} className="m-4 shadow service p-0">
+        <Col
+          xs={12}
+          md={6}
+          lg={4}
+          className="my-4 mx-5 mx-md-4 shadow service p-0"
+        >
           <img
             className="d-block w-100 service-img"
             src="/images/drugs edited.jpg"
@@ -227,7 +237,12 @@ function Home(props) {
             services.
           </p>
         </Col>
-        <Col xs={12} md={6} lg={4} className="m-4 shadow service p-0">
+        <Col
+          xs={12}
+          md={6}
+          lg={4}
+          className="my-4 mx-5 mx-md-4 shadow service p-0"
+        >
           <img
             className="d-block w-100 service-img"
             src="/images/farm management edited.jpg"
@@ -239,7 +254,12 @@ function Home(props) {
             objectives and as well supervise farm operations and progress.
           </p>
         </Col>
-        <Col xs={12} md={6} lg={4} className="m-4 shadow service p-0">
+        <Col
+          xs={12}
+          md={6}
+          lg={4}
+          className="my-4 mx-5 mx-md-4 shadow service p-0"
+        >
           <img
             className="d-block w-100 service-img"
             src="/images/pet care edited.jpg"
@@ -254,7 +274,12 @@ function Home(props) {
             quality life.
           </p>
         </Col>
-        <Col xs={12} md={6} lg={4} className="m-4 shadow service p-0">
+        <Col
+          xs={12}
+          md={6}
+          lg={4}
+          className="my-4 mx-5 mx-md-4 shadow service p-0"
+        >
           <img
             className="d-block w-100 service-img"
             src="/images/pet accessories edited.jpg"

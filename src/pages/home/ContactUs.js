@@ -76,21 +76,26 @@ function ContactUs(props) {
 								placeholder="Full Name"
 								required
 							/>
-							<p className="invalid-feedback">Please enter full name</p>
+							<p className="invalid-feedback">
+								Please enter full name
+							</p>
 						</Form.Group>
 
 						<Form.Group id="email" className="m-4">
 							<Form.Label>Email Address</Form.Label>
 							<Form.Control
 								type="email"
-								onChange={(e) => setContactEmail(e.target.value)}
+								onChange={(e) =>
+									setContactEmail(e.target.value)
+								}
 								name="contactEmail"
 								value={contactEmail}
 								required
 								placeholder="Email Address"
 							/>
 							<p className="invalid-feedback">
-								Please enter valid email address e.g. xmn@gmail.com
+								Please enter valid email address e.g.
+								xmn@gmail.com
 							</p>
 						</Form.Group>
 
@@ -98,7 +103,9 @@ function ContactUs(props) {
 							<Form.Label>Phone number</Form.Label>
 							<Form.Control
 								type="text"
-								onChange={(e) => setContactNumber(e.target.value)}
+								onChange={(e) =>
+									setContactNumber(e.target.value)
+								}
 								name="contactNumber"
 								value={contactNumber}
 								pattern="[0]{1}[7-9]{1}[0-1]{1}[0-9]{8}"
@@ -117,7 +124,9 @@ function ContactUs(props) {
 							value={reasonValue}
 							required
 						>
-							<option value="">Please select reason for contact</option>
+							<option value="">
+								Please select reason for contact
+							</option>
 							<option value="1">Enquiry</option>
 							<option value="2">Appointment</option>
 							<p className="invalid-feedback">
@@ -130,7 +139,9 @@ function ContactUs(props) {
 									<Form.Label>Enquiry Details</Form.Label>
 									<Form.Control
 										as="textarea"
-										onChange={(e) => setEnquiryDetails(e.target.value)}
+										onChange={(e) =>
+											setEnquiryDetails(e.target.value)
+										}
 										name="enquiryDetails"
 										value={enquiryDetails}
 										required
@@ -147,22 +158,40 @@ function ContactUs(props) {
 						<div>
 							{reasonValue === "2" && (
 								<div>
-									<Form.Group id="appointment date" className="m-4">
-										<Form.Label>Preferred appointment date</Form.Label>
+									<Form.Group
+										id="appointment date"
+										className="m-4"
+									>
+										<Form.Label>
+											Preferred appointment date
+										</Form.Label>
 										<Form.Control
 											type="date"
-											onChange={(e) => setAppointmentDate(e.target.value)}
+											onChange={(e) =>
+												setAppointmentDate(
+													e.target.value
+												)
+											}
 											name="appointmentDate"
 											required
 											value={appointmentDate}
 										/>
 									</Form.Group>
 
-									<Form.Group id="appointment time" className="m-4">
-										<Form.Label>Preferred appointment time</Form.Label>
+									<Form.Group
+										id="appointment time"
+										className="m-4"
+									>
+										<Form.Label>
+											Preferred appointment time
+										</Form.Label>
 										<Form.Control
 											type="time"
-											onChange={(e) => setAppointmentTime(e.target.value)}
+											onChange={(e) =>
+												setAppointmentTime(
+													e.target.value
+												)
+											}
 											name="appointmentTime"
 											required
 											value={appointmentTime}
@@ -171,24 +200,36 @@ function ContactUs(props) {
 
 									<Form.Select
 										className="m-4 select"
-										onChange={(e) => setAppointmentAim(e.target.value)}
+										onChange={(e) =>
+											setAppointmentAim(e.target.value)
+										}
 										name="appointmentAim"
 										required
 										value={appointmentAim}
 									>
 										<option value="">
-											Please select the aim of this meeting
+											Please select the aim of this
+											meeting
 										</option>
-										<option value="1">Unhealthy pet or animal</option>
-										<option value="2">Professional guidance</option>
-										<option value="3">Purchase of goods</option>
-										<option value="4">Animal health consultation</option>
+										<option value="1">
+											Unhealthy pet or animal
+										</option>
+										<option value="2">
+											Professional guidance
+										</option>
+										<option value="3">
+											Purchase of goods
+										</option>
+										<option value="4">
+											Animal health consultation
+										</option>
 										<option value="5">
 											Poultry or livestock farm management
 										</option>
 										<option value="6">Others</option>
 										<p className="invalid-feedback">
-											Please select the aim of this meeting
+											Please select the aim of this
+											meeting
 										</p>
 									</Form.Select>
 								</div>
@@ -198,7 +239,11 @@ function ContactUs(props) {
 						<div>{reasonValue === "" && ""}</div>
 
 						<div className="text-center">
-							<Button variant="primary" className="w-75 mb-2" type="submit">
+							<Button
+								variant="primary"
+								className="w-75 mb-2"
+								type="submit"
+							>
 								Submit
 								{loading && (
 									<Spinner
@@ -214,7 +259,8 @@ function ContactUs(props) {
 
 							{error && (
 								<Container className="text-danger text-center">
-									There was an error submitting your enquiry / appointment{" "}
+									There was an error submitting your enquiry /
+									appointment{" "}
 								</Container>
 							)}
 						</div>
@@ -232,9 +278,12 @@ function ContactUs(props) {
 								/>
 							</Button>
 							<h5 className="p-3 my-2">
-								Your Enquiry/Appointment request has been submitted succesfully!
+								Your Enquiry/Appointment request has been
+								submitted succesfully!
 							</h5>
-							<p className="p-3 my-2">We will contact you shortly</p>
+							<p className="p-3 my-2">
+								We will contact you shortly
+							</p>
 						</div>
 					</Container>
 				)}

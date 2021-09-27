@@ -1,16 +1,18 @@
-#admin{
-	margin-top: 13%;
+.admin-nav {
+	position: fixed;
+	left: 0;
+	height: 100%;
+	width: 18%;
+	min-width: 150px;
+}
+.admin-nav .active {
+	color: white !important;
+	border-bottom: 2px solid white !important;
+}
+.admin {
+	margin-left: 24%;
 }
 
-@media (min-width: 576px) {
-#admin{
-		margin-top: 10%;
-	}
-	
-}
-@media (min-width: 900px) {
-#admin{
-		margin-top: 80%;
-	}
-	
+.product-nav .active {
+	border-bottom: 2px solid blue !important;
 }

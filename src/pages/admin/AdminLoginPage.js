@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Button, Form, Spinner, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -107,9 +107,14 @@ function AdminLogin(props) {
               )}
             </Button>
           </div>
+          {error && (
+            <div className="text-danger text-center p-2 m-2 ">
+              Error: Login unsuccessful!
+            </div>
+          )}
         </Form>
       ) : (
-        <VerificationCode success="success" />
+        <VerificationCode />
       )}
     </Container>
   );
@@ -117,12 +122,14 @@ function AdminLogin(props) {
 
 const VerificationCode = (props) => {
   const [adminVerification, setAdminVerification] = useState("");
-  const [validatedCode, setValidatedCode] = useState(false);
+  const [validateCode, setValidateCode] = useState(false);
   const [correctCode, setCorrectCode] = useState(false);
   const [validated, setValidated] = useState(false);
+
   // const [backToLogin, setBackToLogin] = useState(false);
 
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -132,27 +139,10 @@ const VerificationCode = (props) => {
       e.stopPropagation();
     } else {
       setValidated(true);
-      dispatch(adminLogin({})); ///Revisit when API is ready
+      dispatch(adminRequestVerifcation(validateCode));
+      history.push("./admin"); ///Revisit when API is ready
     }
   };
-
-  let history = useHistory();
-
-  // useEffect(() => {
-  //   if (backToLogin) {
-  //     props.history.push("/adminLogin");
-  //   }
-  //   // dispatch({ type: ORDER_CREATE_RESET });
-  // }, [backToLogin, props.history]);
-  // const loginDetailsSuccess = props.success;
-
-  // const backToLogin = () => {
-  //   history.push("/adminLogin");
-  // };
-
-  const adminLoginDetails = useSelector((state) => state.adminLoginDetails);
-  const { success } = adminLoginDetails;
-  console.log(success);
 
   return (
     <div>
@@ -184,15 +174,6 @@ const VerificationCode = (props) => {
         </Form.Group>
 
         <div className="text-center">
-          <Button
-            variant="primary"
-            className="mx-3"
-            onClick={success === true}
-            //   {() => setBackToLogin(true)}
-          >
-            Back
-          </Button>
-
           <Button variant="primary" className="mx-3" type="submit">
             Proceed
             {correctCode ? (

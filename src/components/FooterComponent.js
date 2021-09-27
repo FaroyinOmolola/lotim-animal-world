@@ -7,7 +7,7 @@ import { LinkContainer } from "react-router-bootstrap";
 function Footer() {
   return (
     <div className="footer text-white">
-      <Container>
+      <Container className="px-md-3 px-0">
         <Row className="p-4 footer-sm">
           <Col xs={4}>
             <LinkContainer exact={true} to="/">
@@ -26,9 +26,9 @@ function Footer() {
               </Nav.Link>
             </LinkContainer>
           </Col>
-          <Col xs={8}>
+          <Col xs={8} className="px-md-3 px-0">
             <p className="px-3">Contact</p>
-            <p className="mb-3">
+            <p className="mb-md-3">
               <a
                 className="link-unstyled"
                 href="mailto:lotimanimalworld@gmail.com"
@@ -43,7 +43,7 @@ function Footer() {
                 lotimanimalworld@gmail.com
               </a>
             </p>
-            <p className="mb-3">
+            <p className="mb-md-3">
               <a className="link-unstyled" href="tel:07065363655">
                 <button className="btn contact-sm btn-primary mx-2 pb-2 py-1 rounded-circle">
                   <img
