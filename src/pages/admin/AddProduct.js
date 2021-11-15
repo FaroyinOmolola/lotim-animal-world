@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./admin.scss";
 import {
   Container,
@@ -9,6 +9,13 @@ import {
   FloatingLabel,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import { adminAddProductAction } from "../../actions/AdminProductsActions";
+import {
+  getImageAction,
+  postImageAction,
+} from "../../actions/AdminImageAction";
+import { adminUploadFile, adminGetFile } from "../../AxiosCall.js";
 
 function AddProduct() {
   // states used in redenring/manipulating component
@@ -18,13 +25,18 @@ function AddProduct() {
   const [category, setCategory] = useState([]);
   const [animal, setAnimal] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
+  // const [imageDataURL, setImageDataURL] = useState([]);
   const [features, setFeatures] = useState([]);
   const [varieties, setVarieties] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
 
+  // const addedProduct = useSelector((state) => state.addedProduct);
   console.log(varieties);
+  // const { success } = addedProduct;
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -33,21 +45,33 @@ function AddProduct() {
       e.stopPropagation();
     } else {
       setValidated(true);
+      dispatch(
+        adminAddProductAction({
+          category,
+          animal,
+          imageUrl,
+          features,
+          varieties,
+          name,
+          description,
+          brand,
+        })
+      );
     }
   };
 
-  const handleImage = (file) => {
-    if (file && file[0]) {
-      setImageUrl((prev) => [
-        ...prev,
-        {
-          file: file[0],
-          url: URL.createObjectURL(file[0]),
-          name: file[0]?.name,
-        },
-      ]);
-    }
-  };
+  // const handleImage = (file) => {
+  //   if (file && file[0]) {
+  //     setImageUrl((prev) => [
+  //       ...prev,
+  //       {
+  //         file: file[0],
+  //         url: URL.createObjectURL(file[0]),
+  //         name: file[0]?.name,
+  //       },
+  //     ]);
+  //   }
+  // };
 
   return (
     <div id="addProducts" className="">
@@ -180,8 +204,7 @@ function AddProduct() {
                       type="button"
                       onClick={() =>
                         setCategory((prev) => {
-                          const j = prev.filter((pre, i) => i !== id);
-                          return [...j];
+                          return [...prev.filter((pre, i) => i !== id)];
                         })
                       }
                     >
@@ -191,9 +214,9 @@ function AddProduct() {
                   </Col>
                 </Row>
               ))}
+
               <FloatingLabel controlId="productCategory" className="mb-3">
                 <Form.Select
-                  required
                   value=""
                   onChange={(e) =>
                     setCategory((prev) => [...prev, e.target.value])
@@ -209,6 +232,7 @@ function AddProduct() {
               </FloatingLabel>
             </Col>
           </Row>
+
           <Row className="my-4">
             <p>Product Description</p>
             <Col xs={12} md={6}>
@@ -228,11 +252,11 @@ function AddProduct() {
               </FloatingLabel>
             </Col>
           </Row>
+
           <Row className="my-4">
             <p>Product Features</p>
-
             {features.map((value, id) => (
-              <Row>
+              <Row key={id + "feat"}>
                 <Col xs={4}>
                   <FloatingLabel
                     controlId="productFeatures"
@@ -287,6 +311,7 @@ function AddProduct() {
                 </Col>
               </Row>
             ))}
+
             <Row>
               <Col>
                 <Button
@@ -305,7 +330,7 @@ function AddProduct() {
           <Row className="my-4">
             <p>Product Varieties</p>
 
-            {varieties.map((value, id) => (
+            {varieties?.map((value, id) => (
               <Row>
                 <Col xs={6}>
                   <FloatingLabel
@@ -393,19 +418,19 @@ function AddProduct() {
                 </Col>
                 <Col xs={6}>
                   <FloatingLabel
-                    controlId="discountPrice"
+                    controlId="discount"
                     label="Product discount price"
                     className="mb-3"
                   >
                     <Form.Control
                       type="text"
-                      pattern="[0-9]{1,}"
+                      pattern="[0-9]+(.[0-9]+)?"
                       // value={discountPrice}
                       onChange={(e) =>
                         setVarieties((prev) => {
                           prev[id] = {
                             ...prev[id],
-                            discountPrice: e.target.value,
+                            discount: e.target.value,
                           };
                           return [...prev];
                         })
@@ -436,10 +461,11 @@ function AddProduct() {
                     />
                   </FloatingLabel>
                 </Col>
+
                 <Col xs={6}>
                   {value?.imageUrl && (
                     <img
-                      src={value?.imageUrl}
+                      src={value?.imageDataURL}
                       alt=""
                       className="img-fluid img-thumbnail"
                       style={{ height: "250px", width: "300px" }}
@@ -451,19 +477,26 @@ function AddProduct() {
                       // ref="productImage"
                       type="file"
                       accept="image/png, image/jpeg"
-                      required
                       value=""
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                          setVarieties((prev) => {
-                            prev[id] = {
-                              ...prev[id],
-                              imageUrl: URL.createObjectURL(e.target.files[0]),
-                            };
-
-                            return [...prev];
-                          });
-                        }
+                      onChange={async (e) => {
+                        try {
+                          const response = await adminUploadFile(
+                            e.target.files[0]
+                          );
+                          if (response.status) {
+                            const imageDataURL = await adminGetFile(
+                              response.data?.data[0]?._id
+                            );
+                            setVarieties((prev) => {
+                              prev[id] = {
+                                ...prev[id],
+                                imageUrl: response.data?.data[0]?._id,
+                                imageDataURL: imageDataURL,
+                              };
+                              return [...prev];
+                            });
+                          }
+                        } catch (err) {}
                       }}
                       placeholder="product description"
                     />
@@ -500,7 +533,7 @@ function AddProduct() {
                         imageUrl: "",
                         cost: "",
                         price: "",
-                        discountPrice: "",
+                        discount: "",
                       },
                     ])
                   }
@@ -522,21 +555,16 @@ function AddProduct() {
                   style={{ height: "250px" }}
                 >
                   <Col xs={10}>
-                    <img
-                      src={value.url}
-                      alt={value.name}
-                      className="img-fluid img-thumbnail"
-                      style={{ height: "250px", width: "300px" }}
-                    />
+                    <ImageDisplay imageId={value} />
                   </Col>
                   <Col xs={2}>
                     <Button
                       type="button"
-                      onClick={() =>
+                      onClick={() => {
                         setImageUrl((prev) => {
                           return prev.filter((pre, i) => i !== id);
-                        })
-                      }
+                        });
+                      }}
                     >
                       {" "}
                       Remove{" "}
@@ -545,17 +573,36 @@ function AddProduct() {
                 </Row>
               ))}
 
-              <FloatingLabel controlId="productImages" className="mb-3">
+              {/*<FloatingLabel controlId="productImages" className="mb-3">
                 <Form.Control
                   // ref="productImage"
                   type="file"
                   accept="image/png, image/jpeg"
-                  required
                   value=""
-                  onChange={(e) => handleImage(e.target.files)}
-                  placeholder="product description"
+                  onChange={async (e) => {
+                    try {
+                      const response = await adminUploadFile(e.target.files[0]);
+                      console.log(response);
+                      if (response.status) {
+                        const imageDataURL = await adminGetFile(
+                          response.data?.data[0]?._id
+                        );
+                        setImageDataURL((prev) => [...prev, imageDataURL]);
+                        setImageUrl((prev) => {
+                          return [...prev, response.data?.data[0]?._id];
+                        });
+                      }
+                    } catch (err) {}
+                  }}
                 />
-              </FloatingLabel>
+              </FloatingLabel>*/}
+              <ImageUpload
+                setState={(id) => {
+                  console.log("+0000-");
+                  setImageUrl((prev) => [...prev, id]);
+                  console.log(imageUrl);
+                }}
+              />
             </Col>
           </Row>
 
@@ -563,8 +610,58 @@ function AddProduct() {
             Submit Product
           </Button>
         </Form>
+
+        {/*success && <p>Success!!!!</p>*/}
       </Container>
     </div>
   );
 }
+
 export default AddProduct;
+
+const ImageUpload = ({ setState }) => {
+  const dispatch = useDispatch();
+  const { id } = useSelector((state) => state.imageReducer);
+
+  useEffect(() => {
+    if (id) {
+      console.log(".....========");
+      setState(id);
+    }
+  });
+
+  return (
+    <FloatingLabel controlId="productImages" className="mb-3">
+      <Form.Control
+        // ref="productImage"
+        type="file"
+        accept="image/png, image/jpeg"
+        value=""
+        onChange={async (e) => dispatch(postImageAction(e.target.files[0]))}
+      />
+    </FloatingLabel>
+  );
+};
+
+const ImageDisplay = ({ imageId }) => {
+  const dispatch = useDispatch();
+  const elementRef = useRef(null);
+  // const { loading, error, imageUrl } = useSelector(
+  //   (state) => state.imageReducer
+  // );
+
+  /*if (imageId) dispatch(getImageAction(imageId));*/
+  useEffect(() => {
+    if (imageId) dispatch(getImageAction(imageId));
+  }, [dispatch, imageId]);
+
+  return (
+    <img
+      ref={elementRef}
+      src=""
+      alt="product"
+      className="img-fluid img-thumbnail"
+      style={{ height: "250px", width: "300px" }}
+    />
+  );
+};

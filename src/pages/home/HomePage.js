@@ -9,13 +9,12 @@ import {
   Row,
   Button,
 } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ContactUs from "./ContactUs";
 
 function Home(props) {
-  const redirectTo = (url) => {
-    props.history.push(url);
-  };
+  let history = useHistory();
 
   return (
     <div id="home" className="app">
@@ -62,7 +61,7 @@ function Home(props) {
             <h1 className="fs-lg-1">Doorstep Delivery!</h1>
             <h3>Quality Animal drugs, Vaccines and Care producs</h3>
             <button
-              onClick={() => redirectTo("/products")}
+              onClick={() => history.push("/products")}
               className="btn btn-primary px-md-5 px-3 py-md-2 m-md-2"
             >
               Order Now
@@ -79,7 +78,7 @@ function Home(props) {
             <h1 className="fs-lg-1">Doorstep Delivery!</h1>
             <h3>Quality Pet Food and Accessories</h3>
             <button
-              onClick={() => redirectTo("/products")}
+              onClick={() => history.push("/products")}
               className="btn btn-primary px-md-5 px-3 py-md-2 m-md-2"
             >
               Order Now
@@ -104,7 +103,7 @@ function Home(props) {
         <div>
           <div className="text-center">
             <button
-              onClick={() => redirectTo("/about")}
+              onClick={() => history.push("/about")}
               className="bold d-inline text-white btn btn-secondary d-inline"
             >
               READ MORE

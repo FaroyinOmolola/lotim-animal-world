@@ -32,14 +32,16 @@
 	.navbar-brand {
 		font-size: 1.1rem !important;
 	}
-	.footer p {
+	.footer {
 		font-size: 0.8rem !important;
-		margin-bottom: 0;
 	}
 }
 @media (min-width: 768px) {
 	.carousel-container {
 		max-height: 520px;
+	}
+	.w {
+		width: 50%;
 	}
 }
 @media (max-width: 472px) {

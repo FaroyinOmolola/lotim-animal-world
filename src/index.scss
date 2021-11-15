@@ -14,7 +14,7 @@
 }
 
 .app {
-  margin-top: 6%;
+  margin-top: 5%;
 }
 body {
   font-family: "font-normal";
@@ -48,6 +48,47 @@ body {
   color: #4b8ef1;
   border-color: #0d6efd;
 }
+.loading {
+  height: 100vh;
+  padding-top: 20%;
+}
+
+.modal-content {
+  border: unset !important;
+}
+.naira {
+  text-decoration: line-through;
+  text-decoration-style: double;
+}
+.strike {
+  text-decoration: line-through;
+}
+.inactive {
+  border-top: 0.3rem #c0c0c0 solid;
+  color: #c0c0c0;
+  flex: 1;
+  padding: 1rem;
+}
+
+.actived {
+  border-top: 0.3rem blue solid;
+  color: blue;
+  flex: 1;
+  padding: 1rem;
+}
+.loader {
+  height: 100vh;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.05);
+  z-index: 20;
+  top: 0;
+  display: flex;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
 @media (max-width: 398px) {
   .logo {
     width: 75px;
@@ -84,5 +125,10 @@ body {
   }
   .contact-sm {
     margin: 0px !important;
+  }
+}
+@media (min-width: 768px) {
+  .w {
+    width: 50%;
   }
 }

@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
+import "./admin.scss";
 
-const Enquiries = (props) => {
+import "bootstrap/dist/css/bootstrap.min.css";
+import Enquiry from "./Enquiry";
+
+function EnquiryPage() {
   return (
-    <div>Enquiries</div>
-  )
+    <div id="enquiryPage" className=" admin pt-4">
+      <Enquiry />
+    </div>
+  );
 }
-
-export default Enquiries;
+export default EnquiryPage;

@@ -2,15 +2,18 @@
 	position: fixed;
 	left: 0;
 	height: 100%;
-	width: 18%;
-	min-width: 150px;
+	width: 15% !important;
+	min-width: 120px;
 }
 .admin-nav .active {
 	color: white !important;
 	border-bottom: 2px solid white !important;
 }
+.admin-nav:hover {
+	color: black !important;
+}
 .admin {
-	margin-left: 24%;
+	margin-left: 20%;
 }
 
 .product-nav .active {

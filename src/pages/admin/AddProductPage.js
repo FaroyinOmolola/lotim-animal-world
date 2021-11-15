@@ -3,29 +3,31 @@ import "./admin.scss";
 import { Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AddProduct from "./AddProduct";
 
-function ProductInventory() {
+function AddProductPage() {
   return (
     <div id="products" className=" admin">
-      <Container className="">
+      <Container className="mb-3">
         <Nav
           variant="tabs"
-          className="tex-center ms-3 m-0 product-nav" //localhost:3000/admin/orders
+          className="tex-center product-nav"
           defaultActiveKey="/admin"
         >
           <Nav.Item>
             <LinkContainer exact to="/admin">
-              <Nav.Link>Add Products</Nav.Link>
+              <Nav.Link>Products</Nav.Link>
             </LinkContainer>
           </Nav.Item>
           <Nav.Item>
-            <LinkContainer to="/admin/productsInventory">
-              <Nav.Link>Product Inventory</Nav.Link>
+            <LinkContainer to="/admin/addProducts">
+              <Nav.Link>Add Product</Nav.Link>
             </LinkContainer>
           </Nav.Item>
         </Nav>
       </Container>
+      <AddProduct />
     </div>
   );
 }
-export default ProductInventory;
+export default AddProductPage;

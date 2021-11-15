@@ -3,21 +3,21 @@ import { Container, Button, Form, Spinner, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  adminLogin,
-  adminRequestVerifcation,
-} from "../../actions/AdminActions";
+  adminLoginAction,
+  adminVerificationAction,
+} from "../../actions/AdminLoginActions";
+
 import { useHistory } from "react-router";
 
 function AdminLogin(props) {
-  const [adminEmail, setAdminEmail] = useState("");
-  const [adminPassword, setAdminPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const adminLoginDetails = useSelector((state) => state.adminLoginDetails);
+  const adminLoginDetails = useSelector((state) => state.adminLogin);
   const { loading, success, error } = adminLoginDetails;
 
-  console.log(success);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -28,7 +28,7 @@ function AdminLogin(props) {
       e.stopPropagation();
     } else {
       setValidated(true);
-      dispatch(adminLogin({ adminEmail, adminPassword }));
+      dispatch(adminLoginAction({ email, password }));
 
       ///Revisit when API is ready
     }
@@ -37,7 +37,7 @@ function AdminLogin(props) {
   return (
     <Container
       id="contactus"
-      className=" contact p-3 mx-auto my-5 rounded-pill"
+      className=" contact p-3 mx-auto my-5 w rounded-pill"
     >
       {!success ? (
         <Form
@@ -54,9 +54,9 @@ function AdminLogin(props) {
             <Form.Label htmlFor="adminEmail">Email Address</Form.Label>
             <Form.Control
               type="email"
-              onChange={(e) => setAdminEmail(e.target.value)}
-              name="adminEmail"
-              value={adminEmail}
+              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={email}
               required
               placeholder="Enter login email"
             />
@@ -67,14 +67,14 @@ function AdminLogin(props) {
             <InputGroup className="mb-3">
               <Form.Control
                 type={showPassword ? "text" : "password"}
-                onChange={(e) => setAdminPassword(e.target.value)}
-                name="adminPassword"
-                value={adminPassword}
+                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={password}
                 required
                 placeholder="Enter password"
               />
               <Button
-                onClick={() => setShowPassword(showPassword ? false : true)}
+                onClick={() => setShowPassword(!showPassword)}
                 variant="outline-secondary"
               >
                 {showPassword ? (
@@ -114,23 +114,26 @@ function AdminLogin(props) {
           )}
         </Form>
       ) : (
-        <VerificationCode />
+        <VerificationCode email={email} password={password} />
       )}
     </Container>
   );
 }
 
 const VerificationCode = (props) => {
-  const [adminVerification, setAdminVerification] = useState("");
-  const [validateCode, setValidateCode] = useState(false);
-  const [correctCode, setCorrectCode] = useState(false);
-  const [validated, setValidated] = useState(false);
+  const { email, password } = props;
+  const [otp, setOtp] = useState("");
 
-  // const [backToLogin, setBackToLogin] = useState(false);
+  const adminVerification = useSelector((state) => state.adminVerified);
+  const { loading, error, adminVerified } = adminVerification;
+
+  const [validated, setValidated] = useState(false);
 
   const dispatch = useDispatch();
   let history = useHistory();
-
+  if (adminVerified) {
+    history.push("/admin");
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -139,10 +142,7 @@ const VerificationCode = (props) => {
       e.stopPropagation();
     } else {
       setValidated(true);
-      dispatch(adminRequestVerifcation(validateCode));
-      history.push("./admin"); ///Revisit when API is ready
-      setValidateCode(true);
-      setCorrectCode(true);
+      dispatch(adminVerificationAction({ email, password, otp }));
     }
   };
 
@@ -162,13 +162,18 @@ const VerificationCode = (props) => {
             </small>
           </p>
         </div>
+        {error && (
+          <div className="text-danger text-center p-2 m-2 ">
+            Error: Login unsuccessful!
+          </div>
+        )}
         <Form.Group id="adminVerificationCode" className="m-4">
           <Form.Label htmlFor="adminEmail">Enter Verification code</Form.Label>
           <Form.Control
             type="text"
-            onChange={(e) => setAdminVerification(e.target.value)}
-            name="adminVerification"
-            value={adminVerification}
+            onChange={(e) => setOtp(e.target.value)}
+            name="otp"
+            value={otp}
             pattern="[0-9]{6}"
             required
             placeholder="E.g 567849"
@@ -178,7 +183,7 @@ const VerificationCode = (props) => {
         <div className="text-center">
           <Button variant="primary" className="mx-3" type="submit">
             Proceed
-            {correctCode ? (
+            {loading ? (
               <Spinner
                 className="mx-2"
                 as="span"

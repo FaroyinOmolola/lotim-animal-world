@@ -1,0 +1,75 @@
+.dropdown-item.active,
+.dropdown-item:active {
+  color: black;
+  text-decoration: none;
+  background-color: unset !important;
+}
+
+.product {
+  padding-top: 7%;
+  min-height: 100vh;
+}
+.one-product {
+  background: #f8f8f8 !important;
+}
+.w-fill {
+  width: -webkit-fill-available;
+}
+.product-card {
+  height: 385px;
+}
+.product-card-img {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  overflow: hidden;
+}
+.h-67 {
+  height: 67%;
+}
+
+.accordion-button {
+  padding: 6px;
+}
+label {
+  padding-top: 3px;
+}
+.form-check-input[type="checkbox"] {
+  border-radius: unset !important;
+}
+.accordion-button::after {
+  background-size: 1.05rem;
+}
+.w-max-content {
+  width: max-content;
+  position: absolute;
+  right: 0;
+  margin-top: -8px;
+  margin-right: -19px;
+  padding: 8px;
+}
+.qty-btn {
+  font-size: 20px;
+  padding: 0px 10px;
+}
+.qty-field {
+  width: 32px;
+  border-right: unset;
+  border-left: unset;
+  border-top: unset;
+  border-radius: unset;
+  padding: 0;
+  text-align: center;
+}
+.w-max {
+  width: max-content;
+}
+.cart-badge {
+  position: absolute;
+  margin-left: 18px;
+  margin-top: -7px;
+}
+.form-control[readonly] {
+  background-color: white !important;
+}

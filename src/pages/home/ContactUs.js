@@ -5,18 +5,30 @@ import "./home.scss";
 import { Container, Button, Form, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { contactUs } from "../../actions/ContactUsAction";
+import {
+	sendEnquiryAction,
+	sendBookingAction,
+} from "../../actions/ContactUsAction";
 
 function ContactUs(props) {
-	const [fullname, setFullname] = useState("");
-	const [reasonValue, setReasonValue] = useState("");
-	const [contactEmail, setContactEmail] = useState("");
-	const [contactNumber, setContactNumber] = useState("");
-	const [enquiryDetails, setEnquiryDetails] = useState("");
-	const [appointmentDate, setAppointmentDate] = useState("");
-	const [appointmentTime, setAppointmentTime] = useState("");
-	const [appointmentAim, setAppointmentAim] = useState("");
+	const [name, setName] = useState("");
+	const [whyContactUs, setWhyContactUs] = useState("");
+	const [reason, setReason] = useState("");
+	const [email, setEmail] = useState("");
+	const [description, setDescription] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
+	const [enquiry, setEnquiry] = useState("");
+	const [date, setDate] = useState("");
+	const [time, setTime] = useState("");
+
 	const [validated, setValidated] = useState(false);
+	const minDate = new Date(new Date().setDate(new Date().getDate() + 1))
+		.toISOString()
+		.split("T")[0];
+	const maxDate = new Date(new Date().setMonth(new Date().getMonth() + 2))
+		.toISOString()
+		.split("T")[0];
+	const bookingsDate = new Date(`${date} ${time}`);
 
 	const dispatch = useDispatch();
 
@@ -28,18 +40,22 @@ function ContactUs(props) {
 			e.stopPropagation();
 		} else {
 			setValidated(true);
-			dispatch(
-				contactUs({
-					fullname,
-					reasonValue,
-					contactEmail,
-					contactNumber,
-					enquiryDetails,
-					appointmentDate,
-					appointmentTime,
-					appointmentAim,
-				})
-			);
+			if (whyContactUs === "Enquiry") {
+				dispatch(
+					sendEnquiryAction({ name, email, enquiry, phoneNumber })
+				);
+			} else if (whyContactUs === "Appointment") {
+				dispatch(
+					sendBookingAction({
+						name,
+						email,
+						phoneNumber,
+						reason,
+						description,
+						bookingsDate,
+					})
+				);
+			}
 		}
 	};
 
@@ -50,7 +66,7 @@ function ContactUs(props) {
 		<div>
 			<Container
 				id="contactus"
-				className=" contact p-3 mx-auto my-5 rounded-pill"
+				className=" contact p-3 mx-auto my-5 w rounded-pill"
 			>
 				{!success ? (
 					<Form
@@ -70,9 +86,9 @@ function ContactUs(props) {
 							<Form.Label>Full Name</Form.Label>
 							<Form.Control
 								type="text"
-								onChange={(e) => setFullname(e.target.value)}
-								name="fullname"
-								value={fullname}
+								onChange={(e) => setName(e.target.value)}
+								name="name"
+								value={name}
 								placeholder="Full Name"
 								required
 							/>
@@ -85,11 +101,9 @@ function ContactUs(props) {
 							<Form.Label>Email Address</Form.Label>
 							<Form.Control
 								type="email"
-								onChange={(e) =>
-									setContactEmail(e.target.value)
-								}
-								name="contactEmail"
-								value={contactEmail}
+								onChange={(e) => setEmail(e.target.value)}
+								name="email"
+								value={email}
 								required
 								placeholder="Email Address"
 							/>
@@ -103,47 +117,41 @@ function ContactUs(props) {
 							<Form.Label>Phone number</Form.Label>
 							<Form.Control
 								type="text"
-								onChange={(e) =>
-									setContactNumber(e.target.value)
-								}
-								name="contactNumber"
-								value={contactNumber}
+								onChange={(e) => setPhoneNumber(e.target.value)}
+								name="phoneNumber"
+								value={phoneNumber}
 								pattern="[0]{1}[7-9]{1}[0-1]{1}[0-9]{8}"
-								required
 								placeholder="Phone Number"
 							/>
-							<p className="invalid-feedback">
-								Please enter valid phone number e.g. 07061234567
-							</p>
 						</Form.Group>
 
 						<Form.Select
 							className="m-4 select"
-							onChange={(e) => setReasonValue(e.target.value)}
-							name="reasonValue"
-							value={reasonValue}
+							onChange={(e) => setWhyContactUs(e.target.value)}
+							name="whyContactUs"
+							value={whyContactUs}
 							required
 						>
 							<option value="">
 								Please select reason for contact
 							</option>
-							<option value="1">Enquiry</option>
-							<option value="2">Appointment</option>
+							<option value="Enquiry">Enquiry</option>
+							<option value="Appointment">Appointment</option>
 							<p className="invalid-feedback">
 								Please select reason for contact
 							</p>
 						</Form.Select>
 						<div>
-							{reasonValue === "1" && (
+							{whyContactUs === "Enquiry" && (
 								<Form.Group id="enquiry" className="m-4">
 									<Form.Label>Enquiry Details</Form.Label>
 									<Form.Control
 										as="textarea"
 										onChange={(e) =>
-											setEnquiryDetails(e.target.value)
+											setEnquiry(e.target.value)
 										}
-										name="enquiryDetails"
-										value={enquiryDetails}
+										name="enquiry"
+										value={enquiry}
 										required
 										rows={3}
 										placeholder="What would you like to know"
@@ -156,7 +164,7 @@ function ContactUs(props) {
 						</div>
 
 						<div>
-							{reasonValue === "2" && (
+							{whyContactUs === "Appointment" && (
 								<div>
 									<Form.Group
 										id="appointment date"
@@ -168,13 +176,13 @@ function ContactUs(props) {
 										<Form.Control
 											type="date"
 											onChange={(e) =>
-												setAppointmentDate(
-													e.target.value
-												)
+												setDate(e.target.value)
 											}
-											name="appointmentDate"
+											name="date"
+											min={minDate}
+											max={maxDate}
 											required
-											value={appointmentDate}
+											value={date}
 										/>
 									</Form.Group>
 
@@ -188,55 +196,70 @@ function ContactUs(props) {
 										<Form.Control
 											type="time"
 											onChange={(e) =>
-												setAppointmentTime(
-													e.target.value
-												)
+												setTime(e.target.value)
 											}
-											name="appointmentTime"
+											name="time"
 											required
-											value={appointmentTime}
+											value={time}
 										/>
 									</Form.Group>
 
 									<Form.Select
 										className="m-4 select"
 										onChange={(e) =>
-											setAppointmentAim(e.target.value)
+											setReason(e.target.value)
 										}
-										name="appointmentAim"
+										name="reason"
 										required
-										value={appointmentAim}
+										value={reason}
 									>
 										<option value="">
 											Please select the aim of this
 											meeting
 										</option>
-										<option value="1">
+										<option value="Unhealthy pet or animal">
 											Unhealthy pet or animal
 										</option>
-										<option value="2">
+										<option value="Professional guidance">
 											Professional guidance
 										</option>
-										<option value="3">
+										<option value="Purchase of goods">
 											Purchase of goods
 										</option>
-										<option value="4">
+										<option value="Animal health consultation">
 											Animal health consultation
 										</option>
-										<option value="5">
+										<option value="Poultry or livestock farm management">
 											Poultry or livestock farm management
 										</option>
-										<option value="6">Others</option>
+										<option value="Others">Others</option>
 										<p className="invalid-feedback">
 											Please select the aim of this
 											meeting
 										</p>
 									</Form.Select>
+
+									<Form.Group
+										id="description"
+										className="m-4"
+									>
+										<Form.Label>
+											Any additional information?
+										</Form.Label>
+										<Form.Control
+											as="textarea"
+											onChange={(e) =>
+												setDescription(e.target.value)
+											}
+											name="description"
+											value={description}
+											rows={3}
+											placeholder="Any other information..."
+										/>
+									</Form.Group>
 								</div>
 							)}
 						</div>
-
-						<div>{reasonValue === "" && ""}</div>
 
 						<div className="text-center">
 							<Button
@@ -260,7 +283,9 @@ function ContactUs(props) {
 							{error && (
 								<Container className="text-danger text-center">
 									There was an error submitting your enquiry /
-									appointment{" "}
+									appointment, ensure you fill all fields
+									correctly and / check internet connection
+									and try again.
 								</Container>
 							)}
 						</div>
