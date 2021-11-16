@@ -1,4 +1,4 @@
-import React from "react";
+import React, {  } from "react";
 import "./admin.scss";
 
 import "bootstrap/dist/css/bootstrap.min.css";

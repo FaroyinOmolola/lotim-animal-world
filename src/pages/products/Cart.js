@@ -19,8 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Cart(props) {
 	const cart = useSelector((state) => state.cart);
 	let { cartItems, loading } = cart;
-
-	const dispatch = useDispatch();
+	let dispatch = useDispatch
 
 	return (
 		<div className="">

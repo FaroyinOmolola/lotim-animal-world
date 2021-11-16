@@ -3,10 +3,10 @@ import axios from "axios";
 
 //created axios instance and interceptors
 const productInstance = axios.create({
-	baseURL: "http://client-end.herokuapp.com/product/",
+	baseURL: "https://client-end.herokuapp.com/product/",
 });
 const userInstance = axios.create({
-	baseURL: "http://client-end.herokuapp.com/user",
+	baseURL: "https://client-end.herokuapp.com/user",
 });
 const adminInstance = axios.create({
 	baseURL: "https://lotim-animal-world.herokuapp.com/admin",
