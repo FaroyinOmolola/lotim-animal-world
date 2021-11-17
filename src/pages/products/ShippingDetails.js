@@ -47,13 +47,13 @@ function ShippingDetails(props) {
 
 	return (
 		<div className="one-product mb-0 product">
-			<Container className=" my-3 py-3 bg-white">
+			<Container className=" my-3 py-md-3 py-4   bg-white">
 				<CheckoutSteps step1 step2 />
 				<Form
 					onSubmit={submitHandler}
 					noValidate
 					validated={validated}
-					className="w-md-50 w-75  mx-auto"
+					className=" w-75 px-3 width-100 mx-md-auto"
 				>
 					<h1 className="mb-3 fs-4 text-primary text-center">
 						Shipping Details

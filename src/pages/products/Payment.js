@@ -79,7 +79,7 @@ function Payment(props) {
 					onSubmit={submitHandler}
 					noValidate
 					validated={validated}
-					className=" w-50 mx-auto"
+					className=" w-75 mx-auto width-100 px-3"
 				>
 					<h1 className="mb-3 fs-4 text-primary text-center">
 						Payment

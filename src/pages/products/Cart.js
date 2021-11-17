@@ -19,6 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Cart(props) {
 	const cart = useSelector((state) => state.cart);
 	let { cartItems, loading } = cart;
+	console.log(cartItems)
 	let dispatch = useDispatch
 
 	return (
@@ -46,19 +47,16 @@ function Cart(props) {
 								<>
 									<Row>
 										<Col sm={8}>
-											<ul>
+											
 												{cartItems?.map((item, i) => {
 													return (
-														<li
-															key={item.variety}
-															className="list-unstyled "
-														>
-															<Row>
-																<Col className="my-2">
+														<Card key={item.variety} className="mb-3 p-2">
+															<Row >
+																<Col xs={5} md={4}className="my-2">
 																	<img
 																		style={{
 																			maxWidth:
-																				"5rem",
+																				"120px",
 																			width: "100%",
 																		}}
 																		src="/images/drugs edited.jpg"
@@ -68,7 +66,9 @@ function Cart(props) {
 																		className="img-fluid img-thumbnail"
 																	/>
 																</Col>
-																<Col className="my-2">
+																<Col>
+																<Row>
+																<Col className="my-2" sm={12} md={6}>
 																	<Link
 																		to={`/products/product/${item.product}`}
 																		className="text-decoration-none"
@@ -78,7 +78,21 @@ function Cart(props) {
 																		}
 																	</Link>
 																</Col>
-																<Col className="my-2">
+																
+																<Col className="my-2" sm={12} md={6}>
+																	<span className="naira">
+																		N
+																	</span>{" "}
+																	{item
+																		.varietyDetails
+																		.price *
+																		item.qty}
+																</Col>
+																</Row>
+																</Col>
+															</Row>
+															<Row className="">
+															<Col className="my-2">
 																	<Row className="mb-3">
 																		<Col className="d-flex justify-content-end">
 																			{/*	<p>Quantity: {item.qty}</p>*/}
@@ -153,22 +167,13 @@ function Cart(props) {
 																						)
 																					);
 																				}}
-																			>
+																	npm start		>
 																				+
 																			</Button>
 																		</Col>
 																	</Row>
 																</Col>
-																<Col className="my-2">
-																	<span className="naira">
-																		N
-																	</span>{" "}
-																	{item
-																		.varietyDetails
-																		.price *
-																		item.qty}
-																</Col>
-																<Col className="my-2 w-100">
+															<Col className="my-2 w-100">
 																	<Button
 																		className="btn-warning w-max text-white"
 																		onClick={() =>
@@ -190,10 +195,10 @@ function Cart(props) {
 																	</Button>
 																</Col>
 															</Row>
-														</li>
+															</Card>
 													);
 												})}
-											</ul>
+											
 										</Col>
 
 										<Col>

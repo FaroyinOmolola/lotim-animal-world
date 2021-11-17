@@ -145,7 +145,7 @@ function Header() {
         
         </Navbar>
         {showSearch && (
-         <Modal show={true} onHide={()=>setShowSearch(!showSearch)}>
+         <Modal show={showSearch} onHide={()=>setShowSearch(!showSearch)}>
          <Modal.Header closeButton>
            <Modal.Title><Search/></Modal.Title>
          </Modal.Header>

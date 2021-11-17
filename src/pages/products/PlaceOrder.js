@@ -14,8 +14,8 @@ function PlaceOrder(props) {
 		props.history.push("./payment");
 	}
 
-	const userRegister = useSelector((state) => state.userRegister);
-	const { userInfo } = userRegister;
+	const userSignin = useSelector((state) => state.userSignin);
+	const { userInfo } = userSignin;
 
 	const orderCreated = useSelector((state) => state?.orderCreated);
 	const { loading } = orderCreated;
@@ -53,17 +53,17 @@ function PlaceOrder(props) {
 
 					<Row>
 						<Col sm={8}>
-							<ul className="p-3">
-								<li className="list-unstyled mb-3">
+							<div className="p-md-3 p-2">
+								<div className="list-unstyled mb-3">
 									<Card>
 										<Card.Header>Shipping</Card.Header>
 										<Card.Body>
 											<Card.Text>
 												<strong>Name: </strong>
-												{userInfo?.firstName} {userInfo?.lastName}
+												{userInfo?.data?.user?.firstName} {userInfo?.data?.user?.lastName}
 											</Card.Text>
 											<Card.Text>
-												<strong>Delivery Methode: </strong>
+												<strong>Delivery Method: </strong>
 												{shippingDetails?.delivery ? "Delivery" : "Pick up"}
 											</Card.Text>
 											{shippingDetails?.delivery && (
@@ -74,8 +74,8 @@ function PlaceOrder(props) {
 											)}
 										</Card.Body>
 									</Card>
-								</li>
-								<li className="list-unstyled mb-3">
+								</div>
+								<div className="list-unstyled mb-3">
 									<Card>
 										<Card.Header>Payment</Card.Header>
 										<Card.Body>
@@ -99,8 +99,8 @@ function PlaceOrder(props) {
 											)}
 										</Card.Body>
 									</Card>
-								</li>
-								<li className="list-unstyled mb-3">
+								</div>
+								<div className="list-unstyled mb-3">
 									<Card>
 										<Card.Header>Ordered Items</Card.Header>
 										<Card.Body>
@@ -116,17 +116,11 @@ function PlaceOrder(props) {
 														</Link>
 													</Alert>
 												) : (
-													<ul className="p-0">
-														<Row className="mb-2 fw-bold">
-															<Col></Col>
-															<Col></Col>
-															<Col>Item(s)</Col>
-															<Col>Unit Price</Col>
-															<Col>Total Price</Col>
-														</Row>
+													<div className="p-0">
+														
 														{cartItems.map((item) => (
 															<>
-																<li
+																<div
 																	key={item.product}
 																	className="list-unstyled "
 																>
@@ -134,7 +128,8 @@ function PlaceOrder(props) {
 																		<Col className="my-2">
 																			<img
 																				style={{
-																					maxWidth: "5rem",
+																					maxWidth:
+																						"120px",
 																					width: "100%",
 																				}}
 																				src="/images/drugs edited.jpg"
@@ -142,7 +137,9 @@ function PlaceOrder(props) {
 																				className="img-fluid img-thumbnail"
 																			/>
 																		</Col>
-																		<Col className="my-2">
+																		<Col>
+																		<Row>
+																		<Col className="my-2" xs={12}>
 																			<small>
 																				<Link
 																					to={`/products/product/${item.product}`}
@@ -152,37 +149,36 @@ function PlaceOrder(props) {
 																				</Link>
 																			</small>
 																		</Col>
-
-																		<Col>
-																			<small>{item.qty}</small>
+																		
+																		<Col xs={12} >
+																			<small>Quantity: {item.qty}</small>
 																		</Col>
-																		<Col>
+																		
+																		<Col xs={12} >
 																			<small>
-																				{" "}
-																				{item.varietyDetails.price}
-																			</small>
-																		</Col>
-																		<Col>
-																			<small>
-																				{" "}
-																				{item.varietyDetails.price * item.qty}
+																			Price:	{" "}
+																			<span className="naira">
+																		N
+																	</span>	{item.varietyDetails.price * item.qty}
 																			</small>
 																		</Col>
 																	</Row>
-																</li>
+																	</Col>
+																	</Row>
+																</div>
 															</>
 														))}
-													</ul>
+													</div>
 												)}
 											</Card.Text>
 										</Card.Body>
 									</Card>
-								</li>
-							</ul>
+								</div>
+							</div>
 						</Col>
 						<Col sm={4}>
-							<ul className="p-3">
-								<li className="list-unstyled mb-3">
+							<div className="p-3">
+								<div className="list-unstyled mb-3">
 									<Card className="mb-3">
 										<Card.Header>Order Summary</Card.Header>
 										<Card.Body>
@@ -226,8 +222,8 @@ function PlaceOrder(props) {
 											</Row>
 										</Card.Footer>
 									</Card>
-								</li>
-								<li className="list-unstyled mb-3">
+								</div>
+								<div className="list-unstyled mb-3">
 									<Button
 										type="button"
 										disabled={cartItems?.length < 1}
@@ -236,8 +232,8 @@ function PlaceOrder(props) {
 									>
 										Place Order
 									</Button>
-								</li>
-							</ul>
+								</div>
+							</div>
 
 							{}
 						</Col>
