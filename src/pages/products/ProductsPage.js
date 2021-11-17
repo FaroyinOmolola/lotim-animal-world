@@ -22,17 +22,16 @@ function ProductsPage() {
       {loading ? (
         <Loading />
       ) : (
-        <Row className="px-3">
-          <Col xs={12} md={4} lg={3}>
-            <Filter />
+        <Row className="px-md-3  px-0 py-md-1 pt-4 pb-3">
+          <Col xs={12} md={4} lg={3} className="filter-md">
+            <Filter  />
           </Col>
           <Col xs={12} md={8} lg={9}>
-            <Row className="p-3">
+            <Row className="px-md-3 px-1 pt-4">
               {listProduct?.products.map((product) => (
-                <Col key={product?._id} className=" mb-3">
+                <Col key={product?._id} className="pt-2  mb-3">
                   <Card
-                    style={{ width: "18rem" }}
-                    className="mx-auto product-card"
+                    className="p-1 mx-md-auto product-card"
                   >
                     <Link
                       to={`/products/product/${product?._id}`}
@@ -50,14 +49,14 @@ function ProductsPage() {
                         />
                       </div>
                     </Link>
-                    <Card.Body>
+                    <Card.Body className="px-2 px-md-3">
                       <Card.Title>{product.name}</Card.Title>
                       <Card.Text className=" m-0">
-                        <span className="fw-bold">
+                        <span className="fw-bold fs-6">
                           <span className="naira">N</span>{" "}
                           {product.varieties[0].price}{" "}
                         </span>
-                        <span className="strike text-warning">
+                        <span className="strike ms-2 text-warning">
                           <span className="naira">N</span>{" "}
                           {Math.ceil(
                             (product.varieties[0].price *
@@ -81,12 +80,12 @@ function ProductsPage() {
                             );
                           }}
                         >
-                          ADD TO CART{" "}
+                          <span className="d-none d-md-inline">ADD TO CART</span>
                           <img
                             src="/images/outline_add_shopping_cart_white_24dp.png"
                             alt=""
                             style={{
-                              width: "27px",
+                              width: "22px",
                             }}
                           />
                         </Button>{" "}

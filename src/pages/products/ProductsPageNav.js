@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductsSearchFilter from "./ProductsSearchFilter";
+import ProductsSearchFilter, {Search} from "./ProductsSearchFilter";
 import {
   Navbar,
   Nav,
@@ -12,8 +12,10 @@ import {
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { signoutAction } from "../../actions/UserAction";
+import Filter from './Filter';
+
 
 function Header() {
   const cart = useSelector((state) => state.cart);
@@ -22,9 +24,11 @@ function Header() {
   const { userInfo } = userSignin;
 
   const [signOut, setSignOut] = useState(false);
-
+  const [showSearch, setShowSearch] = useState(false)
   const handleClose = () => setSignOut(false);
   const handleShow = () => setSignOut(true);
+
+  let history = useHistory();
 
   const handleSignOut = () => {
     setSignOut((prev) => (prev = false));
@@ -32,19 +36,17 @@ function Header() {
     history.push("/products");
   };
 
-  let history = useHistory();
   let dispatch = useDispatch();
 
   return (
     <div className="header">
-      <header>
         <Navbar
           collapseOnSelect
           expand="md"
           fixed="top"
           className="px-3 py-2 bg-white shadow-sm "
         >
-          <LinkContainer exact to="/">
+          <LinkContainer exact to="/" className="me-md-5">
             <Navbar.Brand>
               <img
                 alt=""
@@ -56,16 +58,20 @@ function Header() {
             </Navbar.Brand>
           </LinkContainer>
 
+     
+          
           <ProductsSearchFilter />
-
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse
-            id="responsive-navbar-nav"
-            className="justify-content-end"
-          >
-            <Nav className="pe-3 text-primary" variant="primary">
-              <LinkContainer to="/products/cart" className="mx-3">
-                <Nav.Link className="text-primary w-max">
+          <span className ="ms-2 d-inline d-md-none"  onClick={()=>setShowSearch(!showSearch)}>
+           <img
+                      src="/images/search-interface-symbol.png"
+                      alt=""
+                      style={{ width: "22px" }}
+                    />
+            
+            </span>
+ 
+              <LinkContainer to="/products/cart" className="mx-md-3 cart-navbar" >
+                <Nav.Link className="text-primary w-max" >
                   <span className="d-none d-md-inline">Cart </span>
                   <span>
                     {cartItems?.length > 0 && (
@@ -74,9 +80,9 @@ function Header() {
                       </Badge>
                     )}
                     <img
-                      src="/images/outline_shopping_cart_black_24dp.png"
+                      src="/images/shopping-cart.png"
                       alt=""
-                      style={{ width: "27px" }}
+                      style={{ width: "22px" }}
                     />
                   </span>
                 </Nav.Link>
@@ -88,12 +94,12 @@ function Header() {
                   </span>
                   <img
                     src={
-                      userInfo ? "/images/user-signin.png" : "/images/user.png"
+                      userInfo ? "/images/confirm.png" : "/images/user.png"
                     }
                     alt=""
                     className="ps-1"
                     style={{
-                      width: "30px",
+                      width: "27px",
                     }}
                   />
                 </Dropdown.Toggle>
@@ -123,10 +129,32 @@ function Header() {
                   </LinkContainer>
                 </Dropdown.Menu>
               </Dropdown>
-            </Nav>
-          </Navbar.Collapse>
+             
+              <Navbar.Toggle aria-controls="responsive-navbar-nav"  />
+          <Navbar.Collapse
+            id="responsive-navbar-nav"
+
+          > 
+          <Nav className="pe-3 text-primary d-inline d-md-none" variant="primary">
+          <Filter className="filter-sm" />
+          </Nav>
+          </Navbar.Collapse> 
+           
+             
+        
+        
         </Navbar>
-      </header>
+        {showSearch && (
+         <Modal show={true} onHide={()=>setShowSearch(!showSearch)}>
+         <Modal.Header closeButton>
+           <Modal.Title><Search/></Modal.Title>
+         </Modal.Header>
+         
+       </Modal>
+          
+          
+        )}
+
       {signOut && (
         <Modal show={true} onHide={handleClose} animation={false}>
           <Modal.Header closeButton>

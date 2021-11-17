@@ -1,24 +1,15 @@
 import React from "react";
 import "./products.scss";
-import { Form, InputGroup, Dropdown } from "react-bootstrap";
+import { FormControl, InputGroup, Dropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-function ProductsSearchFilter() {
+export default function ProductsSearchFilter(){
   return (
     <div
-      id="productPageSidebar"
-      className="d-flex text-primary w-fill align-items-center"
+      id=""
+      className=" text-primary d-flex align-items-center"
     >
-      <InputGroup className="w-fill mx-auto">
-        <InputGroup.Text
-          id="cityTo"
-          className="px-1"
-          style={{
-            borderRight: "none",
-            borderRadius: "30px 0 0 30px",
-          }}
-        >
-          <Dropdown className="text-primary">
+          <Dropdown className="text-primary  me-3 d-none d-md-inline">
             <Dropdown.Toggle
               className="text-primary py-0"
               id="dropdown-basic"
@@ -35,34 +26,36 @@ function ProductsSearchFilter() {
               <Dropdown.Item eventKey="3">Something else</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </InputGroup.Text>
-        <Form.Control
-          type="search"
-          name="search"
-          id="search"
-          style={{
-            borderRight: "none",
-            borderLeft: "none",
-          }}
-          className="mx-auto p-2 rounded-0 form-g2"
-        />
-        <InputGroup.Text
-          id="cityTo"
-          className="px-2 search-img text-primary"
-          style={{
-            borderLeft: "none",
-            borderRadius: "0 30px 30px 0",
-          }}
-        >
-          {" "}
-          Search
-        </InputGroup.Text>
-      </InputGroup>
+          <span className="d-none d-md-inline">
+      <Search />
+      </span>
+
     </div>
   );
 }
 
-export default ProductsSearchFilter;
+
+
+
+export const Search = () =>{
+  return (
+    <>
+    
+  <InputGroup className="d-flex search">
+        
+        <FormControl id="search" placeholder="Search...." type="search" />
+        <InputGroup.Text className="px-2"><span className ="ms-2"><img
+                      src="/images/search-interface-symbol.png"
+                      alt=""
+                      style={{ width: "22px" }}
+                    /></span></InputGroup.Text>
+      </InputGroup>
+      
+
+      </>
+  )
+}
+
 
 // <Dropdown className="mx-3 text-primary">
 //   <Dropdown.Toggle

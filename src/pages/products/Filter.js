@@ -1,12 +1,15 @@
 import React from "react";
 import "./products.scss";
 import { Accordion, Form } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
 function Filter() {
   return (
-    <div id="productPage" className="product mb-3 ">
+    <div  className="product mb-3 ">
       <div className="border p-2">
         <h2 className="text-center border-bottom pb-2">CATEGORY</h2>
+        
+        <Link to="/products" className="text-decoration-none px-3 me-md-5">All Products</Link>
         <Accordion>
           <Accordion.Item eventKey="0" className="border-0">
             <Accordion.Header>

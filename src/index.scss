@@ -89,6 +89,14 @@ body {
   width: 100vw;
 }
 
+@media (max-width: 576px) {
+  .logo {
+    width: 93px;
+    height: 38px;
+  }
+}
+
+
 @media (max-width: 398px) {
   .logo {
     width: 75px;

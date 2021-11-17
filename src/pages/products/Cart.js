@@ -184,7 +184,7 @@ function Cart(props) {
 																			src="/images/outline_remove_shopping_cart_white_24dp.png"
 																			alt=""
 																			style={{
-																				width: "27px",
+																				width: "22px",
 																			}}
 																		/>
 																	</Button>
