@@ -19,7 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Cart(props) {
 	const cart = useSelector((state) => state.cart);
 	let { cartItems, loading } = cart;
-	console.log(cartItems)
+	
 	let dispatch = useDispatch
 
 	return (
@@ -79,7 +79,10 @@ function Cart(props) {
 																	</Link>
 																</Col>
 																
+																
 																<Col className="my-2" sm={12} md={6}>
+																	<Row className="mb-3">
+																	<Col className="my-2" sm={12} md={6}>
 																	<span className="naira">
 																		N
 																	</span>{" "}
@@ -88,13 +91,7 @@ function Cart(props) {
 																		.price *
 																		item.qty}
 																</Col>
-																</Row>
-																</Col>
-															</Row>
-															<Row className="">
-															<Col className="my-2">
-																	<Row className="mb-3">
-																		<Col className="d-flex justify-content-end">
+																		<Col className="d-flex ">
 																			{/*	<p>Quantity: {item.qty}</p>*/}
 																			<Button
 																				type="button"
@@ -173,6 +170,11 @@ function Cart(props) {
 																		</Col>
 																	</Row>
 																</Col>
+																</Row>
+																</Col>
+															</Row>
+															<Row className="">
+															
 															<Col className="my-2 w-100">
 																	<Button
 																		className="btn-warning w-max text-white"

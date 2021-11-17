@@ -126,6 +126,19 @@ function Payment(props) {
 					)}
 
 					<Row className="my-3">
+					<Col className="mx-3 mb-3">
+							<Button
+								as={Col}
+								type="button"
+								variant="secondary"
+								className="w-100"
+								onClick={() =>
+									props.history.push("/products/shipping")
+								}
+							>
+								Back
+							</Button>
+						</Col>
 						<Col className="mx-3 mb-3">
 							<Button
 								className="w-100"
@@ -141,19 +154,7 @@ function Payment(props) {
 								Continue
 							</Button>
 						</Col>
-						<Col className="mx-3 mb-3">
-							<Button
-								as={Col}
-								type="button"
-								variant="secondary"
-								className="w-100"
-								onClick={() =>
-									props.history.push("/products/shipping")
-								}
-							>
-								Back
-							</Button>
-						</Col>
+						
 					</Row>
 				</Form>
 			</Container>

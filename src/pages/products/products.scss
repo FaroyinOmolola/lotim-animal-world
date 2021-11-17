@@ -78,6 +78,13 @@ label {
 .form-control[readonly] {
   background-color: white !important;
 }
+@media (max-width: 576px) {
+  .product-card{
+    height: 295px;
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .filter-md {
     display: none;
@@ -86,12 +93,12 @@ label {
     display: block;
   }
  
+  .width-100{
+    width: 100% !important;
+  }
   .product-card{
     height: 295px;
     width: 100%;
-  }
-  .width-100{
-    width: 100% !important;
   }
 }
 @media (min-width: 769px) {
