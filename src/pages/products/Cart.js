@@ -16,11 +16,12 @@ import { removeFromCartAction } from "../../actions/CartAction";
 import { addToCartAction } from "../../actions/CartAction";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function Cart(props) {
+const Cart = (props)=>{
 	const cart = useSelector((state) => state.cart);
 	let { cartItems, loading } = cart;
 	
-	let dispatch = useDispatch
+	let dispatch = useDispatch()
+	
 
 	return (
 		<div className="">
@@ -83,13 +84,13 @@ function Cart(props) {
 																<Col className="my-2" sm={12} md={6}>
 																	<Row className="mb-3">
 																	<Col className="my-2" sm={12} md={6}>
-																	<span className="naira">
+																	<div><span className="naira">
 																		N
 																	</span>{" "}
 																	{item
 																		.varietyDetails
 																		.price *
-																		item.qty}
+																		item.qty}</div>
 																</Col>
 																		<Col className="d-flex ">
 																			{/*	<p>Quantity: {item.qty}</p>*/}
@@ -164,7 +165,7 @@ function Cart(props) {
 																						)
 																					);
 																				}}
-																	npm start		>
+																	>
 																				+
 																			</Button>
 																		</Col>
@@ -178,13 +179,8 @@ function Cart(props) {
 															<Col className="my-2 w-100">
 																	<Button
 																		className="btn-warning w-max text-white"
-																		onClick={() =>
-																			dispatch(
-																				removeFromCartAction(
-																					item.variety
-																				)
-																			)
-																		}
+																		onClick={() => dispatch(removeFromCartAction(item.variety)
+																		)}
 																	>
 																		Remove{" "}
 																		<img

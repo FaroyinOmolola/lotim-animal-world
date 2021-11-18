@@ -16,7 +16,7 @@ export const addToCartAction = (body) => async (dispatch, getState) => {
 			fullDetails: data?.data,
 			name: data?.data?.name,
 			brand: data?.data?.brand,
-			image: data?.data?.imageUrl,
+			image: data?.data?.imageUnrl,
 			variety: data?.data?.varieties[body?.variety]?._id,
 			product: data?.data?._id,
 			varietyIndex: body?.variety,
@@ -24,19 +24,13 @@ export const addToCartAction = (body) => async (dispatch, getState) => {
 			qty: body?.qty,
 		},
 	});
-	console.log(body.qty);
-	localStorage.setItem(
-		"cartItem",
-		JSON.stringify(getState().cart?.cartItems)
-	);
+
+	localStorage.setItem("cartItem", JSON.stringify(getState().cart?.cartItems));
 };
 
 export const removeFromCartAction = (body) => (dispatch, getState) => {
 	dispatch({ type: REMOVE_CART_ITEM, payload: body });
-	localStorage.setItem(
-		"cartItem",
-		JSON.stringify(getState().cart?.cartItems)
-	);
+	localStorage.setItem("cartItem", JSON.stringify(getState().cart?.cartItems));
 };
 
 export const signoutCart = () => (dispatch) => {

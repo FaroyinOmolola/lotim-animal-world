@@ -19,8 +19,7 @@ export const AddToCartReducer = (state = { cartItems: [] }, action) => {
 				return {
 					...state,
 					cartItems: state.cartItems.map((x) =>
-						x.product === existItem.product &&
-						x.variety === existItem.variety
+						x.product === existItem.product && x.variety === existItem.variety
 							? item
 							: x
 					),
@@ -31,9 +30,7 @@ export const AddToCartReducer = (state = { cartItems: [] }, action) => {
 		case REMOVE_CART_ITEM:
 			return {
 				...state,
-				cartItems: state.cartItems.filter(
-					(x) => x.variety !== action.payload
-				),
+				cartItems: state.cartItems.filter((x) => x.variety !== action.payload),
 			};
 		case CART_SAVE_SHIPPING_DETAILS:
 			return {

@@ -52,12 +52,13 @@ const initialState = {
 	listProduct: {
 		listProduct: localStorage.getItem("listProduct")
 			? JSON.parse(localStorage.getItem("listProduct"))
-			: null,
+			: null
 	},
 	cart: {
+	
 		cartItems: localStorage.getItem("cartItem")
 			? JSON.parse(localStorage.getItem("cartItem"))
-			: [],
+			: []
 		// shippingAddress: localStorage.getItem("shippingAddress")
 		// 	? JSON.parse(localStorage.getItem("shippingAddress"))
 		// 	: {},
@@ -66,7 +67,7 @@ const initialState = {
 	userSignin: {
 		userInfo: localStorage.getItem("userInfo")
 			? JSON.parse(localStorage.getItem("userInfo"))
-			: null,
+			: null
 	},
 };
 

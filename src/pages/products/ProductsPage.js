@@ -72,11 +72,11 @@ function ProductsPage() {
                           variant="primary"
                           className="mt-2 w-100"
                           onClick={() => {
-                            let productId = product?._id;
-                            let qty = 1;
-                            let variety = 0;
+                            // let productId = product?._id;
+                            // let qty = 1;
+                            // let variety = 0;
                             dispatch(
-                              addToCartAction({ productId, qty, variety })
+                              addToCartAction({ productId: product?._id, qty: 1, variety: 0 })
                             );
                           }}
                         >
